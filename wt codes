@@ -1,0 +1,939 @@
+1)
+<!DOCTYPE html>
+<html ng-app="" ng-init="ask='how are u doing?'">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+</script>
+</head>
+<body>
+<h1>First Program with angular JS</h1>
+<label>NAME:</label>
+<input type="text" ng-model="name" placeholder="Enter your Name:">
+<label>how are you?:</label>
+<input type="text" ng-model="ans" placeholder="Good/Bad/Not so Good">
+<h1>Hello {{name}}</h1>
+<P>{{ask}}</P>
+<p ng-bind="ans" ></p>
+</body>
+</html>
+
+2)
+<!DOCTYPE html>
+<html ng-app="" ng-init="subject=[{sub:'PL'},{sub:'EM'},{sub:'DBMS'}]">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+<div>
+<label>NAME:</label>
+<input type="text" ng-model="name" placeholder="Enter your Name:">
+<h1>Hello {{name}}</h1>
+<p ng-bind="name" ></p>
+<ol>
+    <li ng-repeat="s in subject">
+        {{'subject name is '+s.sub}}
+    </li>
+</ol>
+</div>
+</body>
+</html>
+
+3)
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-app="prac2_q1" ng-controller="mycontroller">
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Likes</th>
+<th>Dislikes</th>
+<th>Fav</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="f in food">
+<td><img widt="100" height="100" ng-src="{{f.href}}"/></td>
+<td>{{f.likes}}</td>
+<td>{{f.dislikes}}</td>
+<td>
+<input type="button" value="Like" ng-click="incrementlikes(f)"/>
+<input type="button" value="Disike" ng-click="incrementdislikes(f)"/>
+</td>
+</tr>
+</tbody>
+</table>
+<script>
+var app=angular.module("prac2_q1",[]).controller("mycontroller",
+function($scope){
+$scope.food = [
+{"href": 'burger.jpg', likes:0,dislikes:0},
+{"href": 'pizza.jpg', likes:0,dislikes:0},
+{"href": 'frenchfries.jpg', likes:0,dislikes:0},
+{"href": 'shawrma.jpg', likes:0,dislikes:0},
+];
+$scope.incrementlikes=function(f){
+f.likes++;
+}
+$scope.incrementdislikes=function(f){
+f.dislikes++;
+}
+});
+</script>
+</body>
+</html>
+
+4)
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+</script>
+</head>
+<body ng-app="prac2_q2" ng-controller="mycontroller">
+<table>
+<thead>
+<tr>
+<th>Food Types</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Cost</th>
+<th>Buy/Delete</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="f in food">
+<td><img widt="100" height="100" ng-src="{{f.href}}"/></td>
+<td>{{f.quantity}}</td>
+<td>{{f.price}}</td>
+<td>{{f.quantity*f.price}}</td>
+<td>
+<input type="button" value="Buy" ng-click="incrementbuy(f)"/>
+<input type="button" value="Delete" ng-click="incrementdelete(f)"/>
+</td>
+</tr>
+</tbody>
+</table>
+<div>total bill in rupess is:{{total()}}</div>
+<script>
+var app=angular.module("prac2_q2",[]).controller("mycontroller",
+function($scope){
+$scope.food = [
+{"href": 'burger.jpg', quantity:0,price:89},
+{"href": 'pizza.jpg', quantity:0,price:129},
+{"href": 'frenchfries.jpg', quantity:0,price:60},
+{"href": 'shawrma.jpg', quantity:0,price:180},
+];
+$scope.total=function(){
+var total=0;
+angular.forEach($scope.food,function(f)
+{
+total=total+f.quantity*f.price;
+})
+return total;
+}
+$scope.incrementbuy=function(f){
+f.quantity++;
+}
+$scope.incrementdelete=function(f){
+if(f.quantity>=1)
+f.quantity--;
+}
+});
+</script>
+</body>
+</html>
+
+5)
+ <html>
+    <head>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script> 
+    </head>
+    <body>
+        <title>SEMESTER MARKS TABLE</title>
+        <style>
+            table,th{
+                border: 3px solid rgb(51, 221, 170);
+                padding:6px;
+            }
+        </style>
+        <h1>SEMESTER MARKS TABLE</h1>
+        <div ng-app="marks" ng-controller="markscontroller">
+            <table>
+                <th>Name</th>
+                <th>SUBJECT AND MARKS</th>
+                <tbody ng-repeat="s in studentdetails">
+                    <tr>
+                        <td>{{s.Name}}</td>
+                        <td>
+                            <table>
+                                <tr ng-repeat="m in s.marksdetails">
+                                    <td>{{m.subject}}</td>
+                                    <td>{{m.marks}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            var app=angular.module('marks',[]);
+            app.controller('markscontroller',function($scope){
+                $scope.studentdetails=[
+                    {Name:"Tanmay",marksdetails:[{subject:"MATHS",marks:"89"},
+                    {subject:"PYTHON PROGRAMMING",marks:"98"}]},
+                    {Name:"Brownie",marksdetails:[{subject:"MATHS",marks:"87"},
+                    {subject:"PYTHON PROGRAMMING",marks:"90"}]},
+                    {Name:"Momo",marksdetails:[{subject:"MATHS",marks:"78"},
+                    {subject:"PYTHON PROGRAMMING",marks:"91"}]}
+                ]});
+        </script>
+    </body>
+</html>
+6)
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <style>
+        input.ng-pristine {
+            background-color:rgb(132, 210, 241);
+        }
+        input.ng-touched.ng-invalid {
+            background-color:rgb(231, 23, 23);
+        }
+        input.ng-touched.ng-valid {
+            background-color:rgb(76, 226, 76);
+        }
+    </style>
+</head>
+<body>
+<div ng-app="prac3_q2" ng-controller="prac3controller">
+     <form name="studentForm" novalidate ng-submit="valid()">
+
+        <label for="firstName">First Name: </label> <br />
+        <input type="text" name="firstName" ng-model="firstName" ng-required="true" /><br> 
+        <span ng-show="studentForm.firstName.$error.required"><small> Name is required.</small></span><br>
+        <label for="lastName">Last Name</label><br />
+        <input type="text" name="lastName" ng-minlength="3" ng-maxlength="10" ng-model="lastName" />
+        <span ng-show="studentForm.lastName.$error.minlength">min 3 chars.</span>
+        <span ng-show="studentForm.lastName.$error.maxlength">Max 10 chars.</span><br>
+        <label for="email">Email</label><br />
+        <input type="email" id="email" name="email" ng-model="email"/>
+        <span ng-show="studentForm.email.$error.email">Please enter valid email id.</span><br>
+        <label for="password">Password</label><br />
+        <input type="password" name="pwd" ng-model="pwd" required placeholder="Password" ng-pattern="/^[A-Za-z]\w{7,14}$/"/>
+        <span ng-show="studentForm.pwd.$error.pattern">Wrong Pattern</span><br>
+        <span ng-if="studentForm.pwd.$error.required"><small>Please fill field above</small><br></span><br>
+        Gender: <input type="radio" name="gender" ng-model="gender" value="female" required/>Female 
+        <input type="radio" name="gender" ng-model="gender" value="male" required />Male <br>
+        <span ng-show="studentForm.gender.$error.required"><small>Please select one radio button</small><br></span><br>
+        <label for="age">Graduation</label><br />
+        <div ng-repeat="c in course">
+          <input type="checkbox" ng-model="c.Selected">{{c.Graduation}}
+        </div>
+        <small>check all the boxes which define you</small>
+        <span ng-show="validationmsg">Please select Checkbox</span><br><br>
+        City:  <select name="preferences" ng-model="p" ng-options="p for p in parray" required></select><br>
+        <span ng-if="studentForm.preferences.$error.required"><small>Please select one choice</small><br></span><br>
+        <label for="aadharcard">Aadhar Card Number</label><br />
+        <input type="text" name="aadharcard" ng-model="aadharcard" ng-pattern="/^\d{4}\s\d{4}\s\d{4}$/"/>
+        <span ng-show="studentForm.aad.$error.pattern">Wrong Pattern</span><br>
+        <span ng-if="studentForm.aad.$error.required"><small>Please fill field above</small><br></span><br>
+        <button type="submit">Submit</button>
+</form>
+</div>
+</body>
+<script>
+var app = angular.module("prac3_q2", []);
+    app.controller('prac3controller',function($scope){
+    $scope.course = [
+        {
+Graduation: '10TH ',
+Selected: false
+}, 
+{
+Graduation: '12TH',
+Selected: false
+}, 
+{
+Graduation: 'Graduate',
+Selected: false
+},
+{
+Graduation: 'Job',
+Selected: false
+}, 
+{
+Graduation: 'Unemployed',
+Selected: false
+},
+{
+Graduation: 'Buisness',
+Selected: false
+}  
+];
+    $scope.parray = ["Mumbai", "Gandhinagar", "Delhi", "Jaipur"];
+    $scope.validationmsg = false;
+$scope.valid = function () {
+var x=0;
+for (var i = 0; i< $scope.course.length; i++) {
+if ($scope.course[i].Selected) {
+    x++;
+    break;
+}
+}
+if(x==0)
+{
+    $scope.validationmsg = true;
+}
+else
+    $scope.validationmsg = false;
+}
+});
+</script>
+</body>
+</html>
+7)
+<html> 
+<head> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script> 
+</head> 
+<body> 
+<div ng-app="prac3" ng-controller="todocon"> 
+    <form name="todoform" ng-submit="additem()"> 
+    <input type="text" name="todo" ng-model="todo" required/> 
+    <button ng-disabled="todoform.$invalid">Add</button> 
+</form> 
+    <button ng-click="clearitem()">clear items</button>   
+<ul>      
+    <li ng-repeat="i in items"/> 
+    <input type="checkbox" ng-model="i.done"/>   
+    <span>{{i.title}}</span> 
+    </li> 
+</ul> 
+</div> 
+<script> 
+    var app = angular.module("prac3", []); 
+    app.controller('todocon',function($scope){ 
+                        $scope.items=[{'title':'List','done':false}]; 
+     $scope.additem=function(){ 
+                $scope.items.push({'title':$scope.todo,'done':false}); 
+        $scope.todo=''; 
+     } 
+      $scope.clearitem=function(){ 
+        $scope.items=$scope.items.filter(function(i) 
+        { 
+            return !i.done; 
+        }) 
+     } 
+    }); 
+    </script> 
+</body> 
+</html>
+8)
+<!Doctype Html>  
+<Html>     
+<Head>      
+<style type=text/css>   
+body   
+{  
+height: 600PX;  
+margin-top: 80px;  
+padding: 30px;  
+background-size: cover;  
+font-family: sans-serif;  
+}  
+header {  
+background-color: rgb(34, 168, 221);  
+position: fixed;  
+left: 0;  
+right: 0; 
+top: 05px;  
+height: 50px;  
+display: flex;  
+align-items: center;  
+box-shadow: 0 0 25px 0 black;  
+}  
+header * {  
+display: inline;  
+}  
+header li {  
+margin: 20px;  
+}  
+header li a {  
+color: rgb(255, 255, 255);  
+text-decoration: none;  
+}  
+</style>   
+</Head>  
+<Body>   
+<header>  
+<nav>  
+<ul>  
+<li>  
+<a href="prac3_q1.html">Prac 3 Q1 </a>  
+</li>  
+<li>  
+<a href="prac3_q2.html"> Prac 3 Q2</a>  
+</li>  
+<li>  
+<a href="prac3_q3.html"> Prac 3 Q3</a>  
+</li>  
+</ul>  
+</nav>  
+</header>  
+CLICK ON ABOVE LIST OF PRACTICAL TO SEE IT........... <br>
+<ul>  
+  <li>  
+  <a href="prac3_q1.html">Prac 3 Q1 </a>  
+  </li>  
+  <li>  
+  <a href="prac3_q2.html"> Prac 3 Q2</a>  
+  </li>  
+  <li>  
+  <a href="prac3_q3.html"> Prac 3 Q3</a>  
+  </li>  
+</ul>
+</Body>   
+</Html>  
+
+9)
+<!DOCTYPE html>
+<html>
+    <head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+    </head>
+    <body>
+        <div ng-app="prac4" ng-controller="con">
+            <div>message is displayed after 3 seconds : {{text}}</div>
+            <div>interval displayed: {{counter}}</div>
+            </div>
+            <script>
+                var sample = angular.module('prac4',[]);
+                sample.controller('con',function($scope,$timeout,$interval,$window)
+                {
+                $scope.text = "Welcome to the website."
+
+                $timeout(function() {
+
+                 $scope.text = "Message changes after 3000 milliseconds of delay.";
+                 }, 3000);
+                    
+                    $scope.counter = 0;
+                    var increaseCounter = function () 
+                    {
+                    $scope.counter = $scope.counter + 1;
+                    }
+                    $interval(increaseCounter, 1000);
+                    
+                    $scope.message = "This is Alert Box";
+                    $scope.alertBox = function () {
+                        $window.alert($scope.message);
+                    }        
+                });
+            </script>
+            </body>
+            </html>
+
+10)
+<!DOCTYPE html>
+<html>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+    </script>
+    <body>
+        <div ng-app="prac4" ng-controller="con">
+            <h1>WELCOME TO CALCULATOR</h1>
+            <form>
+                NUMBER 1<input type="number" name="num1" ng-model="num1"/>
+                <br><br>
+                NUMBER 2<input type="number" name="num2" ng-model="num2"/>
+                <br>
+                <button type="submit" ng-click="valid();">SUBMIT</button>
+            </form>
+            <p>product is{{product}}</p>
+        </div>
+        <script>
+            var app=angular.module('prac4',[]);
+            app.controller('con',function($scope,multiply)
+            {
+                $scope.valid=function()
+                {
+                    $scope.product=multiply.mymultiply($scope.num1,$scope.num2);
+                }
+            }
+            );
+            app.service('multiply',function()
+            {
+                this.mymultiply=function(a,b)
+                {
+                    return parseInt(a)*parseInt(b);
+                }
+            }
+            )
+        </script>
+    </body>
+</html>
+
+11)
+var http = require('http')
+var server = http.createServer(function(req, res){
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write('Hello \n');
+    res.write('How are you?');
+    res.end();
+});
+server.listen(8400);
+12)
+calculatormodule
+exports.add=function(a,b){
+    return a+b;
+};
+exports.subtract=function(a,b){
+    return a-b;
+};
+exports.multiply=function(a,b){
+    return a*b;
+};
+exports.divide=function(a,b){
+    return a/b;
+};
+Q2
+var c = require('./calculatormodule')
+var a=84,b=21;
+console.log("ADDITION:"+c.add(a,b));
+console.log("SUBTRATION:"+c.subtract(a,b));
+console.log("MULTIPLICATION:"+c.multiply(a,b));
+console.log("DIVIDE:"+c.divide(a,b));
+
+13)
+var express = require('express'); //including express   
+var app = new express(); // Creating instance   
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // to support JSON bodies
+var port = 3000; 
+app.listen(port, function(err) {  
+    if (typeof(err) == "undefined") {  
+        console.log('Your application is running on : ' + port + ' port');  
+    }  
+});
+app.get('/', function (req, res) {
+    res.sendFile();
+});
+    app.post('/submit', function (req, res) {
+        var name = req.body.firstName + ' ' + req.body.lastName+ ' '+req.body.optradio;    
+    res.send(name +' Submitted Successfully!');
+});
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="/submit" method="post">
+        First Name: <input name="firstName" type="text" /> <br />
+        Last Name: <input name="lastName" type="text" /> <br />
+        <input type="radio" name="optradio" value="Male">Male</label>
+        <input type="radio" name="optradio" value="Female">Female</label>
+        <input type="submit" />
+    </form>
+</body>
+</html>
+
+14)
+var express = require('express');
+var app = new express()
+var port = 3000;
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}))
+
+app.listen(port,function (err){
+    if (typeof(err)=="undefined"){
+        console.log("Your app is running on "+port+" port");
+    }
+});
+app.get('/',function(req,res){
+    res.sendFile('D:/SEM VI/WEB TECHNOLOGIES/node js project/q2.html');
+});
+app.post('/submit',function(req,res){
+    var name = req.body.firstName+' '+ req.body.lastName;
+    var age = req.body.age;
+    var phone = req.body.phone;
+    var email = req.body.email;
+    var gender = req.body.gender;
+    console.log(name,age,phone,email,gender);
+    res.send('Name:'+name+" Age:"+age+"   Phone:"+phone+"   Email:"+email+"   Gender:"+gender);
+});
+
+<!DOCTYPE html>
+<head>
+
+    <title>Form Validation</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js'></script>
+    <script>
+        var app= angular.module("formValidation",[]).controller("formValidationController",function($scope){
+            $scope.submitForm=function(){
+                if($scope.studentForm.$valid){
+                    alert("Form is valid");
+                }
+                else{
+                    alert("Form is invalid");
+                }
+            }
+        });
+    </script>
+    <style>
+        .error{
+            color: red;
+            font-weight: bold;
+        }
+        input.ng-pristine {
+            background-color:rgba(59, 221, 221, 0.658);
+        }
+        input.ng-touched.ng-invalid {
+            background-color: red;
+        }
+    </style>
+</head>
+<body ng-app="formValidation" ng-controller="formValidationController">
+    <form name="studentForm" novalidate ng-submit="submitForm()" action="/submit" method="post">
+        
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" ng-model="student.firstName" ng-required="true">
+        <span ng-show="studentForm.firstName.$touched && studentForm.firstName.$error.required" class="error">First name is required</span>
+        <br/><br/>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastName" ng-model="student.lastName" ng-minlength="3" ng-maxlength="10">
+        <span ng-show="studentForm.lastName.$touched && studentForm.lastName.$error.minlength">A minimum of 3 characters are required</span>
+        <span ng-show="studentForm.lastName.$touched && studentForm.lastName.$error.maxlength" class="error">A maximum of 10 characters are allowed</span>
+        <br/><br/>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" ng-model="student.age" ng-min="10" ng-max="50">
+        <span ng-show="studentForm.age.$touched && studentForm.age.$error.min" class="error">Age should be greater than 10</span>
+        <span ng-show="studentForm.age.$touched && studentForm.age.$error.max" class="error">Age should be less than 50</span>
+        <br/><br/>
+
+        <label for="password">Password:</label>
+        <input type="{{passType}}" name="password" ng-model="student.password" ng-pattern="/^[A-Za-z]\w{7,14}$/"/>
+        <input type="checkbox" name="passwordVisible" id="passwordVisible" ng-model="passwordVisible" ng-click="showHidePassword()"/>
+        <span ng-show="studentForm.password.$touched && studentForm.password.$error.pattern && studentForm.password.$error.pattern" class="error">Password must contain at least one letter and one number, and at least 8 characters</span><br/><br/>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" ng-model="student.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+        <span ng-show="studentForm.email.$touched && studentForm.email.$error.pattern" class="error">Wrong pattern</span><br/><br/>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" ng-model="student.phone" ng-pattern="/^[0-9]{10}$/">
+        <span ng-show="studentForm.phone.$touched && studentForm.phone.$error.pattern" class="error">Wrong pattern</span><br/><br/>
+
+        <label for="gender">Gender</label>
+        <input type="radio" name="gender" id="gender" value="male">Male
+        <input type="radio" name="gender" id="gender" value="female">Female
+        <input type="radio" name="gender" id="gender" value="other">Other
+        <input type="submit" value="submit">
+    </form>
+
+</body>
+</html>
+
+15)
+const readlineSync = require('readline-sync');
+const mysql = require('mysql');
+var conn = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"123456",
+    database:"exp7"
+})
+
+conn.connect(function(err){
+    if(err) console.log('error',err);
+    console.log("Connected")
+});
+tableQuery=`CREATE TABLE IF NOT EXISTS employee(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    department VARCHAR(40),
+    salary INT,
+    age INT,
+    experience INT
+);`
+conn.query(tableQuery,function(err,result){
+    if(err){
+        console.log('err',err);
+    }
+    else{
+        console.log("Table created");
+    }
+});
+
+var values=[
+    [100,'tanmay','Admin',12000,53,10],
+    [101,'abhay','Admin',13000,52,10],
+    [103,'trupti','Management',11000,51,10],
+    [104,'nidhi','Accounting',10000,51,6],
+    [105,'momo','HR',9000,53,3],
+    [106,'ashish','Sales',9000,50,6],
+    [107,'nila','Sale',9000,50,6],
+    [108,'pogo','HR',8000,50,4],
+    [109,'shah','Sales',9000,51,5],
+    [110,'aloo','Accounting',10000,51,6],
+]
+insertQuery = `INSERT INTO employee(id,name,department,salary,age,experience) VALUES ?`;
+conn.query(insertQuery,[values],function(err,result){
+    if(err) throw err;
+    console.log('Data added'+result.affectedRows+'row(s) affected');
+});
+
+conn.query(`SELECT * FROM employee `,function(err,result){
+    if(err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+conn.query(`SELECT * FROM employee WHERE experience < 10`,function(err,result){
+    if(err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+conn.query(`SELECT * FROM employee WHERE department = 'HR' AND age>45`,function(err,result){
+    if(err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+conn.query(`UPDATE employee SET name = 'pogo' WHERE id=108`,function(err,result){
+    if(err) throw err;
+    console.log('Updated '+result.affectedRows+' row(s)');
+
+});
+selectQuery = `SELECT * FROM employee WHERE id=108`;
+conn.query(selectQuery,function(err,result,fields){
+    if (err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+
+})
+
+conn.query(`SELECT department,AVG(salary) FROM employee GROUP BY department;`,function(err,result){
+    if(err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+  conn.query("SELECT * FROM EMPLOYEE ORDER BY DEPARTMENT", function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+conn.query(`DELETE FROM employee WHERE name='pogo' AND id=108`,function(err,result){
+    if(err) throw err;
+    console.log('Deleted'+result.affectedRows);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+conn.query(`ALTER TABLE employee DROP age`,function(err,result){
+    if(err) throw err;
+    console.log('Deleted age '+result);
+    conn.end(function(err){
+        if (err) throw err;
+        console.log("Database connection closed");
+    })
+});
+
+16)
+const mysql = require("mysql")
+const bodyparser  = require("body-parser")
+const express = require("express")
+
+var app = express()
+app.use(bodyparser.json())
+var conn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'expressmysql'
+});
+conn.connect((err) =>{
+    if(err) throw err;
+    console.log("Connection successful");
+});
+app.listen(8400,console.log("Listening on port http://localhost:8400/"))
+tableQuery=`CREATE TABLE IF NOT EXISTS employee(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    department VARCHAR(40),
+    salary INT,
+    age INT,
+    experience INT
+);`
+
+app.post('/tableCreate',(req,res)=>{
+    conn.query(tableQuery,(err,result)=> {
+        if (err) throw err;
+        res.send("Table created");
+    });
+});
+
+var values=[
+    [100,'tanmay','Admin',12000,55,16],
+    [101,'abhay','Admin',13000,50,16],
+    [103,'trupti','Management',11000,49,12],
+    [104,'nidhi','Accounting',10000,27,8],
+    [105,'momo','HR',9000,36,7],
+    [106,'ashish','Sales',9000,45,4],
+    [107,'nila','Sale',9000,40,4],
+    [108,'pogo','HR',8000,32,5],
+    [109,'shah','Sales',9000,32,5],
+    [110,'aloo','Accounting',10000,25,5],
+]
+insertQuery = `INSERT INTO employee(id,name,department,salary,age,experience) VALUES ?`;
+app.get('/insert',(req,res)=>{
+    conn.query(insertQuery,[values],function(err,result){
+        if(err) throw err;
+        res.send('Data added'+result.affectedRows+'row(s) affected');
+    });
+});
+app.get('/selectall',(req,res)=>{
+    conn.query(`SELECT * FROM employee`,function(err,result){
+        if(err) throw err;
+        res.send(result);
+    });
+});
+app.get('/age10',(req,res)=>{
+    conn.query(`SELECT * FROM employee WHERE experience < 10`,function(err,result){
+        if(err) throw err;
+        res.send(result);
+    });
+});
+app.get('/getavg',(req,res)=>{
+    conn.query(`SELECT AVG(salary) FROM employee`,function(err,result){
+        if (err) throw err;
+        res.send(result)
+    });
+});
+app.post('/updateadmin/:id',(req,res)=>{
+    empname = req.body.empname
+    sql = `UPDATE employee SET name = '?' WHERE id = `+req.params.id;
+    conn.query(sql,empname,function(err,result){
+        if(err) throw err;
+        res.send(result);
+    });
+});
+app.get('/allemp',(req,res)=>{
+    conn.query(`SELECT * FROM employee ORDER BY department asc`,function(err,result){
+        if(err) throw err;
+        res.send(result);
+    });
+});
+app.get('/deletexyz',(req,res)=>{
+    conn.query(`DELETE FROM employee WHERE name='xyz' AND id=10`,function(err,result){
+        if(err) throw err;
+        res.send('Deleted '+result.affectedRows);
+    });
+});
+
+17)
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+var dbo;
+MongoClient.connect(url, function(err, db) 
+{
+  if (err) throw err;
+    console.log("Database created!");
+ dbo = db.db("mydb");
+
+ 
+   var myobj = { name: "xyz", address: "mumbai",marks:74};
+    dbo.collection("student_details").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    });
+
+});
+var myobj =[{ name: "xyz4", address: "mumbai",course:"awp",marks:90 },{ name: "xyz1", address: "mumbai",course:"awp",marks:87 },{ name: "xyz2", address: "mumbai",course:"awp",marks:40 },{ name: "xyz3", address: "mumbai",course:"awp",marks:65}];
+ dbo.collection("student_details").insertMany(myobj, function(err, res) {
+ if (err) throw err;
+ console.log("Many documents inserted");
+ });
+
+
+dbo.collection("student_details").updateMany({name:"xyz"},{$set:{address:"delhi"}},function(err, result){
+    if (err) throw err;
+    console.log(" document(s) updated");
+    });
+dbo.collection("student_details").find({}, {projection:{ _id: 0, name: 1,address:1} }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("all student documents with name and address");
+    console.log(result);
+    });
+dbo.collection("student_details").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result); 
+    });
+dbo.collection("student_details").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.name);
+	});
+dbo.collection("student_details").find({}, {projection:{ _id: 0, name: 1,address:1} }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("all student documents with name and address");
+    console.log(result);
+    });
+var mysort = { name:1};
+ dbo.collection("student_details").find().sort(mysort).toArray(function(err, result) {
+ if (err) throw err;
+ console.log("Sorted documents by student name");
+ console.log(result);
+});
+dbo.collection("student_details").find({name:/^x/}, {projection: { _id: 0, name: 1,address:1} }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log("student names starting with 'x'");
+    console.log(result);
+    });
+dbo.collection("student_details").deleteOne({"name":"xyz"});
+[var myquery = {address: /^d/};
+ dbo.collection("student_details").deleteMany(myquery, function(err, obj) {
+   if (err) throw err;
+   console.log(" document(s) deleted");
+
+
+});
+
+
+
+
+
